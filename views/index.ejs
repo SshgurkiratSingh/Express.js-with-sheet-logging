@@ -43,7 +43,7 @@ Last Updated<p id="date"></p></div></center>
             </div>
       
             <div class="front-content">
-              <small class="badge">Sensor 1</small>
+                <a style="decoration:none" href="/specific/value1">       <small class="badge">Sensor 1</small></a>
               <div class="description">
                 <div class="title">
                   <p class="title">
@@ -86,7 +86,7 @@ Last Updated<p id="date"></p></div></center>
             </div>
       
             <div class="front-content">
-              <small class="badge">Sensor 2</small>
+                <a style="decoration:none" href="/specific/value2">   <small class="badge">Sensor 2</small></a>
               <div class="description">
                 <div class="title">
                   <p class="title">
@@ -129,7 +129,7 @@ Last Updated<p id="date"></p></div></center>
             </div>
       
             <div class="front-content">
-              <small class="badge">Sensor 3:</small>
+                <a style="decoration:none" href="/specific/value3">   <small class="badge">Sensor 3:</small></a>
               <div class="description">
                 <div class="title">
                   <p class="title">
@@ -149,7 +149,7 @@ Last Updated<p id="date"></p></div></center>
         <div class="content">
           <div class="back">
             <div class="back-content">
-                <h2>Sensor 4:</h2>
+             <h2>Sensor 4:</h2>
               <svg stroke="#ffffff" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50px" width="50px" fill="#ffffff">
       
               <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
@@ -172,7 +172,7 @@ Last Updated<p id="date"></p></div></center>
             </div>
       
             <div class="front-content">
-              <small class="badge">Sensor 4</small>
+                <a style="decoration:none" href="/specific/value4">   <small class="badge">Sensor 4</small></a>
               <div class="description">
                 <div class="title">
                   <p class="title">
@@ -197,13 +197,13 @@ Last Updated<p id="date"></p></div></center>
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           var data = JSON.parse(xhr.responseText);
-
+let date=new Date(data.date);
          
           document.getElementById("s1").innerHTML = data.value1;
           document.getElementById("s2").innerHTML = data.value2;
           document.getElementById("s3").innerHTML = data.value3;
           document.getElementById("s4").innerHTML = data.value4;
-          document.getElementById("date").innerHTML = data.date;
+          document.getElementById("date").innerHTML = date.toLocaleString();
         }
       };
       xhr.open("GET", "/api/latest", true);

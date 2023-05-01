@@ -26,7 +26,7 @@ Sensor History<p id="date"></p></div></center>
           <tbody>
             <% data.forEach(item=>{ %>
               <tr>
-            <td><%= item.date.toLocaleDateString() %></td>
+            <td><% let date = new Date(item.date) %><%= date.toLocaleString() %></td>
            
     <td><%= item.value %></td>
           </tr>
