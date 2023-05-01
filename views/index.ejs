@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Live Sensor Monitoring from Esp8266</title>
+   
+    <link href="/public/style.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  </head>
+  <body><center>
+<h1 class="text-red-500	 text-3xl hover:font-black font-extrabold	">Live Readings</h1>
+<div class="text-lime-400	">
+Last Updated<p id="date"></p></div></center>
+
+<p id="date"></p>
+<div class="container">
+    <div class="card">
+        <div class="content">
+          <div class="back">
+            <div class="back-content">
+                <h2>Sensor 1:</h2>
+              <svg stroke="#ffffff" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50px" width="50px" fill="#ffffff">
+      
+              <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      
+              <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+
+              </svg>
+              <strong id="s1">Loading</strong>
+            </div>
+          </div>
+          <div class="front">
+            
+            <div class="img">
+              <div class="circle">
+              </div>
+              <div class="circle" id="right">
+              </div>
+              <div class="circle" id="bottom">
+              </div>
+            </div>
+      
+            <div class="front-content">
+              <small class="badge">Sensor 1</small>
+              <div class="description">
+                <div class="title">
+                  <p class="title">
+                    <strong>Description</strong>
+                  </p>
+                
+                </div>
+                <p class="card-footer">
+               Random value from Esp8266
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="content">
+          <div class="back">
+            <div class="back-content">
+                <h2>Sensor 2:</h2>
+              <svg stroke="#ffffff" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50px" width="50px" fill="#ffffff">
+      
+              <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      
+              <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+
+              </svg>
+              <strong id="s2">Loading</strong>
+            </div>
+          </div>
+          <div class="front">
+            
+            <div class="img">
+              <div class="circle">
+              </div>
+              <div class="circle" id="right">
+              </div>
+              <div class="circle" id="bottom">
+              </div>
+            </div>
+      
+            <div class="front-content">
+              <small class="badge">Sensor 2</small>
+              <div class="description">
+                <div class="title">
+                  <p class="title">
+                    <strong>Description</strong>
+                  </p>
+                
+                </div>
+                <p class="card-footer">
+               Random value from Esp8266
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="content">
+          <div class="back">
+            <div class="back-content">
+                <h2>Sensor 3:</h2>
+              <svg stroke="#ffffff" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50px" width="50px" fill="#ffffff">
+      
+              <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      
+              <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+
+              </svg>
+              <strong id="s3">Loading</strong>
+            </div>
+          </div>
+          <div class="front">
+            
+            <div class="img">
+              <div class="circle">
+              </div>
+              <div class="circle" id="right">
+              </div>
+              <div class="circle" id="bottom">
+              </div>
+            </div>
+      
+            <div class="front-content">
+              <small class="badge">Sensor 3:</small>
+              <div class="description">
+                <div class="title">
+                  <p class="title">
+                    <strong>Description</strong>
+                  </p>
+                
+                </div>
+                <p class="card-footer">
+               Random value from Esp8266
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="content">
+          <div class="back">
+            <div class="back-content">
+                <h2>Sensor 4:</h2>
+              <svg stroke="#ffffff" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" height="50px" width="50px" fill="#ffffff">
+      
+              <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      
+              <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+
+              </svg>
+              <strong id="s4">Loading</strong>
+            </div>
+          </div>
+          <div class="front">
+            
+            <div class="img">
+              <div class="circle">
+              </div>
+              <div class="circle" id="right">
+              </div>
+              <div class="circle" id="bottom">
+              </div>
+            </div>
+      
+            <div class="front-content">
+              <small class="badge">Sensor 4</small>
+              <div class="description">
+                <div class="title">
+                  <p class="title">
+                    <strong>Description</strong>
+                  </p>
+                
+                </div>
+                <p class="card-footer">
+               Random value from Esp8266
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<script>
+    function updateData() {
+     
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+
+         
+          document.getElementById("s1").innerHTML = data.value1;
+          document.getElementById("s2").innerHTML = data.value2;
+          document.getElementById("s3").innerHTML = data.value3;
+          document.getElementById("s4").innerHTML = data.value4;
+          document.getElementById("date").innerHTML = data.date;
+        }
+      };
+      xhr.open("GET", "/api/latest", true);
+      xhr.send();
+    }
+
+    // Update the data every 2 seconds
+    setInterval(updateData, 2000);
+  </script>
+  </body></html>

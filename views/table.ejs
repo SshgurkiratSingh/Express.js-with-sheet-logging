@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Sensor Value History</title>
+   
+    <link href="/public/style.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  </head>
+  <body><center>
+<h1 class="text-red-500	 text-3xl hover:font-black font-extrabold	" id="sens"><%=name %></h1>
+<div class="text-lime-400	">
+Sensor History<p id="date"></p></div></center>
+<div class="overflow-x-auto">
+    <table class="table w-full">
+        <thead>
+            <tr>
+              <th>Date</th>
+              <th>Value</th>
+            
+            </tr>
+            
+          </thead>
+          <tbody>
+            <% data.forEach(item=>{ %>
+              <tr>
+            <td><%= item.date.toLocaleDateString() %></td>
+           
+    <td><%= item.value %></td>
+          </tr>
+              
+           <% }) %>
+            </tbody>
+    </table>
+  </div></body></html>
