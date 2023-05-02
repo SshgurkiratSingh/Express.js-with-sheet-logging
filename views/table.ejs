@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html data-theme="luxury">
   <head>
     <title>Sensor Value History</title>
    
@@ -8,8 +8,38 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     
-  </head>
+  </head><style>button {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    min-width:70px;
+    color: #ffffff80;
+    text-shadow: none;
+    background: transparent;
+    box-shadow: transparent;
+    border: 1px solid #ffffff80;
+    transition: 0.5s ease;
+    user-select: none;
+  }
+  
+  #btn:hover,:focus {
+    color: #ffffff;
+    background: #008cff;
+    border: 1px solid #008cff;
+    text-shadow: 0 0 5px #ffffff,
+                0 0 10px #ffffff,
+                0 0 20px #ffffff;
+    box-shadow: 0 0 5px #008cff,
+                0 0 20px #008cff,
+                0 0 50px #008cff,
+                0 0 100px #008cff;
+  }</style>
   <body><center>
+   <a href="/"> <button id="btn">
+      Home
+    </button></a>
 <h1 class="text-red-500	 text-3xl hover:font-black font-extrabold	" id="sens"><%=name %></h1>
 <div class="text-lime-400	">
 Sensor History<p id="date"></p></div>
