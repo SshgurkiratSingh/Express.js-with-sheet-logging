@@ -1,6 +1,9 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
+const api = require("./router/api.js");
+
+app.use("/api", api);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/public", express.static(`${process.cwd()}/public`));
