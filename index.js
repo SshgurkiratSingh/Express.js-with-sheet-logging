@@ -1,7 +1,15 @@
 const express = require("express");
 const fs = require("fs");
+const exceljs = require("exceljs");
+
 const app = express();
 const api = require("./router/api.js");
+const sheetdb = require("sheetdb-node");
+let config = {
+  address: "aavb2ip9w4zds",
+};
+
+var client = sheetdb(config);
 
 app.use("/api", api);
 app.use(express.json());
@@ -45,6 +53,14 @@ app.post("/api/add", (req, res) => {
   };
   data.push(dataToStore);
   fs.writeFileSync("data.json", JSON.stringify(data));
+  client.create(dataToStore).then(
+    function (data) {
+      console.log(data);
+    },
+    function (err) {
+      console.log(err);
+    }
+  );
   res.status(200).json({ file: "done" });
 });
 app.get("/specific/:aa", (req, res) => {
@@ -56,5 +72,35 @@ app.get("/specific/:aa", (req, res) => {
   }));
 
   res.render("table.ejs", { data: newdata, name: nn });
+});
+app.get("/exp", async (req, res) => {
+  try {
+    let jsonData = fs.readFileSync("data.json");
+    let data = JSON.parse(jsonData);
+    let workbook = new exceljs.Workbook();
+    const sheet = workbook.addWorksheet("data");
+    sheet.columns = [
+      { header: "date", key: "date", width: 20 },
+      { header: "value1", key: "value1", width: 20 },
+      { header: "value2", key: "value2", width: 20 },
+      { header: "value3", key: "value3", width: 20 },
+      { header: "value4", key: "value4", width: 20 },
+    ];
+
+    await data.map((item) => {
+      sheet.addRow({
+        date: item.date,
+        value1: item.value1,
+        value2: item.value2,
+        value3: item.value3,
+        value4: item.value4,
+      });
+    });
+
+    await workbook.xlsx.writeFile("./public/history.xlsx");
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+  res.redirect("/public/history.xlsx");
 });
 app.listen(3000, () => {});
