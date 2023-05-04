@@ -70,8 +70,8 @@ app.get("/specific/:aa", (req, res) => {
     value: item[nn],
     date: item.date,
   }));
-
-  res.render("table.ejs", { data: newdata, name: nn });
+  val = nn.split("");
+  res.render("table.ejs", { data: newdata, name: nn[5] });
 });
 app.get("/exp", async (req, res) => {
   try {
