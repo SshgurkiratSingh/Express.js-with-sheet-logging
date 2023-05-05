@@ -6,10 +6,22 @@ router.get("/", (req, res) => {
 });
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
-router.post("/custom", (req, res) => {
+router.post("/custom", async (req, res) => {
   let jsonData = fs.readFileSync("customisation.json");
   let data = JSON.parse(jsonData);
-  res.json("done");
-  console.log(req.body);
+  data.sensor[req.body.select].title = req.body.title;
+  data.sensor[req.body.select].subtitle = req.body.subtitle;
+  data.sensor[req.body.select].description = req.body.description;
+  fs.writeFileSync("customisation.json", JSON.stringify(data));
+
+  res.redirect("/");
+});
+router.post("/customHeading", async (req, res) => {
+  let jsonData = fs.readFileSync("customisation.json");
+  let data = JSON.parse(jsonData);
+  data.title = req.body;
+  fs.writeFileSync("customisation.json", JSON.stringify(data));
+
+  res.redirect("/");
 });
 module.exports = router;

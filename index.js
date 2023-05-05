@@ -19,8 +19,8 @@ app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   let jsonData = fs.readFileSync("customisation.json");
-  let data = JSON.parse(jsonData);
-  res.render("index.ejs", { data });
+  let { sensor, title } = JSON.parse(jsonData);
+  res.render("index.ejs", { data: sensor, title: title });
 });
 
 app.get("/api/get", (req, res) => {
@@ -112,10 +112,8 @@ app.get("/exp", async (req, res) => {
   }
   res.redirect("/public/history.xlsx");
 });
-app.get("/api/customisation", (req, res) => {
-  let jsonData = fs.readFileSync("customisation.json");
-  let data = JSON.parse(jsonData);
-  res.json(data);
+
+app.get("/custom", (req, res) => {
+  res.render("custom.ejs");
 });
-app.get("/custom", (req, res) => {res.render("custom.ejs")});
 app.listen(3000, () => {});

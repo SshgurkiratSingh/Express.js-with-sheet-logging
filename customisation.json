@@ -1,12 +1,1 @@
-{
-    "s1": {"title":"Humidity Sensor",
-"description":"Humidity values fom esp8266","subtitle":"Sensor Value"},
-
-"s2":{"title":"Temperature",
-"description":"temperature values fom esp8266","subtitle":"Sensor Value"}
-,
-"s3":{"title":"Proximity",
-"description":"proximity values fom esp8266","subtitle":"Sensor Value"},
-"s4":{"title":"ultrasonic",
-"description":"distance values fom esp8266","subtitle":"Sensor Value"}
-  }
+{"sensor":{"s1":{"title":"ldr Sensor","description":"LDR value from esp8266","subtitle":"LDR"},"s2":{"title":"Temperature","description":"temperature values fom esp8266","subtitle":"Sensor Value"},"s3":{"title":"Button Click","description":"Button attached to pin 6","subtitle":"Push button reading"},"s4":{"title":"Serial Monitor ","description":"Input from user in serial monitor","subtitle":"Ide"}},"title":{"heading":"hf","hoverHeading":"add","hoverSubHeading":"afa"}}
