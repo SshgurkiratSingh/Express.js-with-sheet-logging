@@ -1,0 +1,12 @@
+{
+    "s1": {"title":"Humidity Sensor",
+"description":"Humidity values fom esp8266","subtitle":"Sensor Value"},
+
+"s2":{"title":"Temperature",
+"description":"temperature values fom esp8266","subtitle":"Sensor Value"}
+,
+"s3":{"title":"Proximity",
+"description":"proximity values fom esp8266","subtitle":"Sensor Value"},
+"s4":{"title":"ultrasonic",
+"description":"distance values fom esp8266","subtitle":"Sensor Value"}
+  }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html data-theme="luxury">
+  <head>
+    <title>Home 
+
+    </title>
+   
+    <link href="/public/styles.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+  </head>
+  <body><center>
+    <form class="form" action="/api/custom" method="POST">
+        <select id="sensor-select" class="select select-accent w-full max-w-xs">
+            <option value="s1">Sensor 1</option>
+            <option value="s2">Sensor 2</option>
+            <option value="s3">Sensor 3</option>
+            <option value="s4">Sensor 4</option>
+        </select>
+        <label class="lb" for="nome">Title</label>
+              <input name="nome" id="nome" type="text" class="infos">
+        
+              <label for="email" class="lb">Subtitle</label>
+              <input name="email" id="email" type="text" class="infos">
+        
+              <label for="data" class="lb">Description</label>
+              <input name="data" id="data" type="text" class="infos">
+        
+              <button id="send" type="submit">Send</button>
+              <button id="limpar" type="reset">Clear </button>
+             
+            </form>
+            <a href="/">
+                <div id="home" class="btn btn-md">Home</div></a>
+</body></center>
+  </body></html>

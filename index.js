@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const exceljs = require("exceljs");
-
+const SteinStore = require("stein-js-client");
 const app = express();
 const api = require("./router/api.js");
 const sheetdb = require("sheetdb-node");
@@ -18,7 +18,9 @@ app.use("/public", express.static(`${process.cwd()}/public`));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  let jsonData = fs.readFileSync("customisation.json");
+  let data = JSON.parse(jsonData);
+  res.render("index.ejs", { data });
 });
 
 app.get("/api/get", (req, res) => {
@@ -53,14 +55,21 @@ app.post("/api/add", (req, res) => {
   };
   data.push(dataToStore);
   fs.writeFileSync("data.json", JSON.stringify(data));
-  client.create(dataToStore).then(
-    function (data) {
-      console.log(data);
-    },
-    function (err) {
-      console.log(err);
-    }
+  // client.create(dataToStore).then(
+  //   function (data) {
+  //     console.log(data);
+  //   },
+  //   function (err) {
+  //     console.log(err);
+  //   }
+  // );
+  const store = new SteinStore(
+    "https://api.steinhq.com/v1/storages/6453d2d8eced9b09e9cdd875"
   );
+
+  store.append("Sheet1", [dataToStore]).then((res) => {
+    console.log(res);
+  });
   res.status(200).json({ file: "done" });
 });
 app.get("/specific/:aa", (req, res) => {
@@ -103,4 +112,10 @@ app.get("/exp", async (req, res) => {
   }
   res.redirect("/public/history.xlsx");
 });
+app.get("/api/customisation", (req, res) => {
+  let jsonData = fs.readFileSync("customisation.json");
+  let data = JSON.parse(jsonData);
+  res.json(data);
+});
+app.get("/custom", (req, res) => {res.render("custom.ejs")});
 app.listen(3000, () => {});
