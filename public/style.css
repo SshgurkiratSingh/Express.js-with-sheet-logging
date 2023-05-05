@@ -16,7 +16,7 @@
   .card {
     position: relative;
     width: 250px;
-    height: 250px;
+    height: 180px;
     color: #2e2d31;
     background: #131313;
     overflow: hidden;
@@ -151,13 +151,15 @@
      transform: translateY(0%);
     }
    }
+   
+
 
 
 
 
    .con {
-    width: 250px;
-    height: 120px;
+    width: 350px;
+    height: 80px;
     background: transparent;
     position: relative;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.438);
@@ -265,7 +267,7 @@
   
   .myCard {
     background-color: transparent;
-    width: 300px;
+    width: 500px;
     height: 80px;
     perspective: 1000px;
   }
@@ -336,4 +338,15 @@
     border-radius: 1em;
     filter: blur(20px);
   }
-  
+  @media only screen and (max-width: 768px) {
+    .card {
+      position: relative;
+      width: 500px;
+      height: 180px;
+      color: #2e2d31;
+      background: #131313;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+   
+  }

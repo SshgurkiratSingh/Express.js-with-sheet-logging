@@ -8,7 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     
-  </head>
+  </head><style>@media only screen and (max-width: 1000px) {
+  
+  } 
+  </style>
   <body><center>
     <div class="myCard">
       <div class="innerCard">
@@ -28,9 +31,11 @@
     <div class="text-lime-400	">
       Last Updated<p id="date"></p></div>
   </div>
-</div></center><center class="flex container m-2">
+</div></center>
+
+<center class=" container m-2">
 <a href="./specific/value1">
-<article class="card m-2">
+<article class="card  m-2">
   <div class="temporary_text">
     <%=data["s1"].title %>:<div id="s1"></div>
   </div>
@@ -98,7 +103,7 @@ let date=new Date(data.date);
 </div></section></center>
 
   </body>
-  <footer class="footer items-center p-4 bg-neutral text-neutral-content">
+  <footer class="footer items-center p-5 bg-neutral text-neutral-content">
     <div class="items-center grid-flow-col">
       <p class="title ">Miscellaneous Toolbox: A collection of Tools.</p>
     </div> 
