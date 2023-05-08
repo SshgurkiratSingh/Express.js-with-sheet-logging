@@ -32,72 +32,80 @@
       Last Updated<p id="date"></p></div>
   </div>
 </div></center>
+<center class="container m-2">
+  <% Object.keys(data).forEach((key) => { %>
+    <% const item = data[key]; %>
+    <% if (item.guage === 'on') { %>
+      <a href="./specific/<%= key %>">
+        <div>
+          <article class="card m-2">
+            <div class="temporary_text">
+              <%= item.title %>:<div id="<%= key %>"></div>
+            </div>
+            <div class="card_content">
+              <span class="card_title"><%= item.subtitle %></span>
+              <span class="card_subtitle"><%= item.description %> .Unit in <%= item.description %></span>
+            </div>
+          </article>
+          <div class="p bg-primary text-primary-content border-4 border-primary" id="<%= key %>guage" style="--value:0;"></div>
+        </div>
+      </a>
+    <% } else { %>
+      <a href="./specific/<%= key %>">
+        <article class="card m-2">
+          <div class="temporary_text">
+            <%= item.title %>:<div id="<%= key %>"></div>
+          </div>
+          <div class="card_content">
+            <span class="card_title"><%= item.subtitle %></span>
+            <span class="card_subtitle"><%= item.description %> .Unit in <%= item.unit %></span>
+          </div>
+        </article>
+      </a>
+    <% } %>
+  <% }); %>
+</center>
 
-<center class=" container m-2">
-<a href="./specific/value1">
-<article class="card  m-2">
-  <div class="temporary_text">
-    <%=data["s1"].title %>:<div id="s1"></div>
-  </div>
-<div class="card_content">
-  <span class="card_title"><%=data["s1"].subtitle %></span>
-      <span class="card_subtitle"><%=data["s1"].description %></span>
-    
-</div></a>
-</article><a href="./specific/value2">
-<article class="card m-2">
-  <div class="temporary_text">
-    <%=data["s2"].title %>:<div id="s2"></div>
-  </div>
-<div class="card_content">
-  <span class="card_title"><%=data["s2"].subtitle %></span>
-      <span class="card_subtitle"><%=data["s2"].description %></span>
-    
-</div>
-</article></a></center><center class="flex container m-2">
-  <a href="./specific/value3">
-  <article class="card m-2">
-    <div class="temporary_text">
-      <%=data["s3"].title %>:<div id="s3"></div>
-    </div>
-  <div class="card_content">
-    <span class="card_title"><%=data["s3"].subtitle %></span>
-        <span class="card_subtitle"><%=data["s3"].description %></span>
-      
-  </div>
-  </article></a><a href="./specific/value4">
-  <article class="card m-2">
-    <div class="temporary_text">
-      <%=data["s4"].title %>:<div id="s4"></div>
-    </div>
-  <div class="card_content">
-    <span class="card_title"><%=data["s4"].subtitle %></span>
-        <span class="card_subtitle"><%=data["s4"].description %></span>
-      
-  </div>
-  </article></a></center>
 <script>
     function updateData() {
-     
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var data = JSON.parse(xhr.responseText);
-let date=new Date(data.date);
-         
-          document.getElementById("s1").innerHTML = data.value1;
-          document.getElementById("s2").innerHTML = data.value2;
-          document.getElementById("s3").innerHTML = data.value3;
-          document.getElementById("s4").innerHTML = data.value4;
-          document.getElementById("date").innerHTML = date.toLocaleString();
-        }
-      };
-      xhr.open("GET", "/api/latest", true);
-      xhr.send();
-    }
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var dataFromServer = JSON.parse(xhr.responseText);
+      let date = new Date(dataFromServer.date);
+      document.getElementById("s1").innerHTML=dataFromServer.value1;  
+document.getElementById("s2").innerHTML=dataFromServer.value2;
+document.getElementById("s3").innerHTML=dataFromServer.value3;
+document.getElementById("s4").innerHTML=dataFromServer.value4;
 
-    // Update the data every 2 seconds
-    setInterval(updateData, 2000);
+if (document.getElementById("s3guage") ) {
+  document.getElementById("s3guage").style.setProperty('--value', Math.floor(dataFromServer.value3));
+  document.getElementById("g3guage").innerHTML = Math.floor(dataFromServer.value3);
+} 
+if (document.getElementById("s4guage") ) {
+  document.getElementById("s4guage").style.setProperty('--value', Math.floor(dataFromServer.value4));
+  document.getElementById("g4guage").innerHTML = Math.floor(dataFromServer.value4);
+}
+if (document.getElementById("s1guage") ) {
+  document.getElementById("s1guage").style.setProperty('--value', Math.floor(dataFromServer.value1));
+  document.getElementById("g1guage").innerHTML = "Ddd";
+}
+if (document.getElementById("s2guage") ) {
+  document.getElementById("s2guage").style.setProperty('--value', Math.floor(dataFromServer.value2));
+  document.getElementById("g2guage").innerHTML = Math.floor(dataFromServer.value2);
+  
+}
+      document.getElementById("date").innerHTML = date.toLocaleString();
+    }
+  };
+  xhr.open("GET", "/api/latest", true);
+  xhr.send();
+  
+}
+
+// Update the data every 2 seconds
+setInterval(updateData, 2000);
+console.log(data);
   </script><br/><center><section style="display:block;">
    
 </div></section></center>

@@ -74,6 +74,15 @@ app.post("/api/add", (req, res) => {
 });
 app.get("/specific/:aa", (req, res) => {
   let nn = req.params.aa;
+  if (nn == "s1") {
+    nn = "value1";
+  } else if (nn == "s2") {
+    nn = "value2";
+  } else if (nn == "s3") {
+    nn = "value3";
+  } else if (nn == "s4") {
+    nn = "value4";
+  }
   let jsonData = JSON.parse(fs.readFileSync("data.json"));
   let newdata = jsonData.map((item) => ({
     value: item[nn],

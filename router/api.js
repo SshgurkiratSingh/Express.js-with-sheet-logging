@@ -11,6 +11,10 @@ router.post("/custom", async (req, res) => {
   data.sensor[req.body.select].title = req.body.title;
   data.sensor[req.body.select].subtitle = req.body.subtitle;
   data.sensor[req.body.select].description = req.body.description;
+  data.sensor[req.body.select].unit = req.body.unit;
+  data.sensor[req.body.select].guage = req.body.guage;
+  console.log(req.body);
+
   fs.writeFileSync("customisation.json", JSON.stringify(data));
 
   res.redirect("/");
