@@ -1,3 +1,11 @@
+body{
+  min-height: 100vh;
+}
+
+footer{
+  position: fixed;
+bottom:0;
+}
 .container {
     display: flex;
     justify-content: center;
@@ -16,7 +24,7 @@
   .card {
     position: relative;
     width: 250px;
-    height: 180px;
+    height: 250px;
     color: #2e2d31;
     background: #131313;
     overflow: hidden;
