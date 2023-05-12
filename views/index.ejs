@@ -28,8 +28,9 @@
 
 <div class="con">
   <div class="card1">
-    <div class="text-lime-400	">
-      Last Updated<p id="date"></p></div>
+    <div class="text-lime-400	">Last Updated: <br/>
+   Device 1: <p id="date"></p>
+     Device 2: <p id="date2"></p></div>
   </div>
 </div></center>
 <center class="container m-2">
@@ -72,30 +73,33 @@
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var dataFromServer = JSON.parse(xhr.responseText);
-      let date = new Date(dataFromServer.date);
+      let date = new Date(dataFromServer.date1);
+      let date2 = new Date(dataFromServer.date2);
+      console.log(dataFromServer);
       document.getElementById("s1").innerHTML=dataFromServer.value1;  
 document.getElementById("s2").innerHTML=dataFromServer.value2;
 document.getElementById("s3").innerHTML=dataFromServer.value3;
 document.getElementById("s4").innerHTML=dataFromServer.value4;
-
+document.getElementById("date").innerHTML=date;
+document.getElementById("date2").innerHTML=date2;
 if (document.getElementById("s3guage") ) {
   document.getElementById("s3guage").style.setProperty('--value', Math.floor(dataFromServer.value3));
-  document.getElementById("g3guage").innerHTML = Math.floor(dataFromServer.value3);
+
 } 
 if (document.getElementById("s4guage") ) {
   document.getElementById("s4guage").style.setProperty('--value', Math.floor(dataFromServer.value4));
-  document.getElementById("g4guage").innerHTML = Math.floor(dataFromServer.value4);
+ 
 }
 if (document.getElementById("s1guage") ) {
   document.getElementById("s1guage").style.setProperty('--value', Math.floor(dataFromServer.value1));
-  document.getElementById("g1guage").innerHTML = "Ddd";
+ 
 }
 if (document.getElementById("s2guage") ) {
   document.getElementById("s2guage").style.setProperty('--value', Math.floor(dataFromServer.value2));
-  document.getElementById("g2guage").innerHTML = Math.floor(dataFromServer.value2);
+  
   
 }
-      document.getElementById("date").innerHTML = date.toLocaleString();
+    
     }
   };
   xhr.open("GET", "/api/latest", true);

@@ -6,6 +6,34 @@ router.use(express.json());
 
 router.use(express.urlencoded({ extended: false }));
 
+router.post("/add/node1", (req, res) => {
+  console.log(req.body);
+  let jsonData = fs.readFileSync("data.json");
+  let data = JSON.parse(jsonData);
+  let dataToStore = {
+    date: new Date(),
+    val1: req.body.value1,
+    val2: req.body.value2,
+  };
+  data["node1"].push(dataToStore);
+
+  fs.writeFileSync("data.json", JSON.stringify(data));
+  res.json(dataToStore);
+});
+router.post("/add/node2", (req, res) => {
+  console.log(req.body);
+  let jsonData = fs.readFileSync("data.json");
+  let data = JSON.parse(jsonData);
+  let dataToStore = {
+    date: new Date(),
+    val1: req.body.value1,
+    val2: req.body.value2,
+  };
+  data["node2"].push(dataToStore);
+
+  fs.writeFileSync("data.json", JSON.stringify(data));
+  res.json(dataToStore);
+});
 router.post("/api/add", (req, res) => {
   console.log(req.body);
   let jsonData = fs.readFileSync("data.json");
@@ -53,7 +81,14 @@ router.post("/custom", async (req, res) => {
 });
 router.get("/latest", (req, res) => {
   let jsonData = JSON.parse(fs.readFileSync("data.json"));
-  res.json(jsonData[jsonData.length - 1]);
+  res.json({
+    value1: jsonData["node1"][jsonData["node1"].length - 1].val1,
+    value2: jsonData["node1"][jsonData["node1"].length - 1].val2,
+    value3: jsonData["node2"][jsonData["node2"].length - 1].val1,
+    value4: jsonData["node2"][jsonData["node2"].length - 1].val2,
+    date1: jsonData["node1"][jsonData["node1"].length - 1].date,
+    date2: jsonData["node2"][jsonData["node2"].length - 1].date,
+  });
 });
 router.post("/customHeading", async (req, res) => {
   let jsonData = fs.readFileSync("customisation.json");

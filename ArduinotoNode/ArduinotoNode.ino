@@ -4,7 +4,7 @@
 
 const char* ssid = "Node ";
 const char* password = "whyitellyou";
-const char* serverUrl = "http://192.168.1.100:3000/api/add";
+const char* serverUrl = "http://192.168.1.100:3000/api/add/node2";
 
 void setup() {
   Serial.begin(9600);
@@ -22,14 +22,11 @@ void loop() {
 
   int value1 = random(100);
   int value2 = random(100);
- int value3 = random(100);
-  int value4 = random(100);
+
 
   DynamicJsonDocument payload(1024);
   payload["value1"] = value1;
   payload["value2"] = value2;
- payload["value3"] = value3;
-  payload["value4"] = value4;
 
   String jsonPayload;
   serializeJson(payload, jsonPayload);
