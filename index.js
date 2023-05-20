@@ -25,7 +25,22 @@ app.get("/", (req, res) => {
 
 app.get("/api/get", (req, res) => {
   let jsonData = fs.readFileSync("data.json");
-  res.json(JSON.parse(jsonData));
+
+  let data = JSON.parse(jsonData);
+  let date1 = new Date(data["node1"][data["node1"].length - 1].date);
+  let date2 = new Date(data["node2"][data["node2"].length - 1].date);
+  console.log(date1.toISOString());
+
+  res
+    .json({
+      value1: data["node1"][data["node1"].length - 1].val1,
+      value2: data["node1"][data["node1"].length - 1].val2,
+      value3: data["node2"][data["node2"].length - 1].val1,
+      value4: data["node2"][data["node2"].length - 1].val2,
+      date1: date1,
+      date2: date2,
+    })
+    .status(200);
 });
 app.get("/api/getspecific/:id", (req, res) => {
   let nn = req.params.id;
@@ -40,22 +55,27 @@ app.get("/api/getspecific/:id", (req, res) => {
 
 app.get("/specific/:aa", (req, res) => {
   let nn = req.params.aa;
+  let jj;
   if (nn == "s1") {
-    nn = "value1";
+    nn = "val1";
+    jj = "node1";
   } else if (nn == "s2") {
-    nn = "value2";
+    nn = "val2";
+    jj = "node1";
   } else if (nn == "s3") {
-    nn = "value3";
+    nn = "val3";
+    jj = "node2";
   } else if (nn == "s4") {
-    nn = "value4";
+    nn = "val4";
+    jj = "node2";
   }
   let jsonData = JSON.parse(fs.readFileSync("data.json"));
-  let newdata = jsonData.map((item) => ({
+  let newdata = jsonData[jj].map((item) => ({
     value: item[nn],
     date: item.date,
   }));
   val = nn.split("");
-  res.render("table.ejs", { data: newdata, name: nn[5] });
+  res.render("table.ejs", { data: newdata, name: nn[3] });
 });
 app.get("/exp", async (req, res) => {
   try {
