@@ -1,6 +1,45 @@
+/*
+This file contains the Express server setup. It:
+
+- Requires the Express, fs, and exceljs packages
+- Initializes an Express app
+- Requires the router/api.js file 
+- Uses middleware for JSON, URL-encoded form, and static file serving
+- Sets the view engine to EJS
+
+The / route renders the index.ejs view with data from customisation.json
+
+The /api/get route:
+- Reads data from data.json
+- Gets the last date and value for node1 and node2
+- Sends a JSON response with the data
+
+The /api/getspecific/:id route:
+- Gets the id from the request params
+- Filters the data from data.json by the given id
+- Sends the filtered data in a JSON response
+
+The /specific/:aa route: 
+- Gets a sensor value (s1-s4) from the request params
+- Maps the data from data.json to get only the selected sensor values
+- Renders the table.ejs view with the data
+
+The /exp route:
+- Reads data from data.json
+- Creates an Excel workbook and worksheet 
+- Adds columns for date, value1, value2, value3, value4
+- Adds rows of data from data.json to the worksheet
+- Writes the workbook to public/history.xlsx
+- Redirects to the downloaded file
+
+The /custom route renders the custom.ejs view.
+
+The app listens on port 3000.
+*/
 const express = require("express");
 const fs = require("fs");
 const exceljs = require("exceljs");
+const cors = require("cors");
 
 const app = express();
 const api = require("./router/api.js");
@@ -8,7 +47,8 @@ const sheetdb = require("sheetdb-node");
 let config = {
   address: "aavb2ip9w4zds",
 };
-
+// Enable CORS for all routes
+app.use(cors());
 var client = sheetdb(config);
 
 app.use("/api", api);
