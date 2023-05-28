@@ -73,34 +73,40 @@ router.get("/latest", async (req, res) => {
     date2: node2Latest.date,
   });
 });
-
 router.get("/history/:node", async (req, res) => {
   const { node } = req.params;
   const jsonData = await fs.readFile(dataFile, "utf8");
   const data = JSON.parse(jsonData);
-  let selectedData;
+  let selectedData = [];
 
   if (node === "value1") {
-    selectedData = data["node1"].map(({ val1, date }) => ({
-      value: val1,
-      date,
-    }));
+    selectedData =
+      data["node1"]?.map(({ val1, date }) => ({
+        value: val1,
+        date: new Date(date).toLocaleString(),
+      })) || [];
   } else if (node === "value2") {
-    selectedData = data["node1"].map(({ val2, date }) => ({
-      value: val2,
-      date,
-    }));
+    selectedData =
+      data["node1"]?.map(({ val2, date }) => ({
+        value: val2,
+        date: new Date(date).toLocaleString(),
+      })) || [];
   } else if (node === "value3") {
-    selectedData = data["node2"].map(({ val1, date }) => ({
-      value: val1,
-      date,
-    }));
+    selectedData =
+      data["node2"]?.map(({ val1, date }) => ({
+        value: val1,
+        date: new Date(date).toLocaleString(),
+      })) || [];
   } else if (node === "value4") {
-    selectedData = data["node2"].map(({ val2, date }) => ({
-      value: val2,
-      date,
-    }));
+    selectedData =
+      data["node2"]?.map(({ val2, date }) => ({
+        value: val2,
+        date: new Date(date).toLocaleString(),
+      })) || [];
   }
+
+  // Get the last 15 values from selectedData
+  selectedData = selectedData.slice(-25);
 
   res.json(selectedData);
 });
