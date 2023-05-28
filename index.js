@@ -1,41 +1,3 @@
-/*
-This file contains the Express server setup. It:
-
-- Requires the Express, fs, and exceljs packages
-- Initializes an Express app
-- Requires the router/api.js file 
-- Uses middleware for JSON, URL-encoded form, and static file serving
-- Sets the view engine to EJS
-
-The / route renders the index.ejs view with data from customisation.json
-
-The /api/get route:
-- Reads data from data.json
-- Gets the last date and value for node1 and node2
-- Sends a JSON response with the data
-
-The /api/getspecific/:id route:
-- Gets the id from the request params
-- Filters the data from data.json by the given id
-- Sends the filtered data in a JSON response
-
-The /specific/:aa route: 
-- Gets a sensor value (s1-s4) from the request params
-- Maps the data from data.json to get only the selected sensor values
-- Renders the table.ejs view with the data
-
-The /exp route:
-- Reads data from data.json
-- Creates an Excel workbook and worksheet 
-- Adds columns for date, value1, value2, value3, value4
-- Adds rows of data from data.json to the worksheet
-- Writes the workbook to public/history.xlsx
-- Redirects to the downloaded file
-
-The /custom route renders the custom.ejs view.
-
-The app listens on port 3000.
-*/
 const express = require("express");
 const fs = require("fs");
 const exceljs = require("exceljs");
@@ -58,34 +20,34 @@ app.use("/public", express.static(`${process.cwd()}/public`));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  let jsonData = fs.readFileSync("customisation.json");
-  let { sensor, title } = JSON.parse(jsonData);
+  const jsonData = fs.readFileSync("customisation.json", "utf8");
+  const { sensor, title } = JSON.parse(jsonData);
   res.render("index.ejs", { data: sensor, title: title });
 });
 
 app.get("/api/get", (req, res) => {
-  let jsonData = fs.readFileSync("data.json");
+  const jsonData = fs.readFileSync("data.json", "utf8");
+  const data = JSON.parse(jsonData);
+  const node1Latest = data["node1"][data["node1"].length - 1];
+  const node2Latest = data["node2"][data["node2"].length - 1];
+  const date1 = new Date(node1Latest.date).toISOString();
+  const date2 = new Date(node2Latest.date).toISOString();
 
-  let data = JSON.parse(jsonData);
-  let date1 = new Date(data["node1"][data["node1"].length - 1].date);
-  let date2 = new Date(data["node2"][data["node2"].length - 1].date);
-  console.log(date1.toISOString());
-
-  res
-    .json({
-      value1: data["node1"][data["node1"].length - 1].val1,
-      value2: data["node1"][data["node1"].length - 1].val2,
-      value3: data["node2"][data["node2"].length - 1].val1,
-      value4: data["node2"][data["node2"].length - 1].val2,
-      date1: date1,
-      date2: date2,
-    })
-    .status(200);
+  res.status(200).json({
+    value1: node1Latest.val1,
+    value2: node1Latest.val2,
+    value3: node2Latest.val1,
+    value4: node2Latest.val2,
+    date1: date1,
+    date2: date2,
+  });
 });
+
 app.get("/api/getspecific/:id", (req, res) => {
-  let nn = req.params.id;
-  let jsonData = JSON.parse(fs.readFileSync("data.json"));
-  let newdata = jsonData.map((item) => ({
+  const nn = req.params.id;
+  const jsonData = fs.readFileSync("data.json", "utf8");
+  const data = JSON.parse(jsonData);
+  const newdata = data.map((item) => ({
     value: item[nn],
     date: item.date,
   }));
@@ -109,19 +71,22 @@ app.get("/specific/:aa", (req, res) => {
     nn = "val4";
     jj = "node2";
   }
-  let jsonData = JSON.parse(fs.readFileSync("data.json"));
-  let newdata = jsonData[jj].map((item) => ({
+  const jsonData = fs.readFileSync("data.json", "utf8");
+  const data = JSON.parse(jsonData);
+  const newdata = data[jj].map((item) => ({
     value: item[nn],
     date: item.date,
   }));
-  val = nn.split("");
+  const val = nn.split("");
+
   res.render("table.ejs", { data: newdata, name: nn[3] });
 });
+
 app.get("/exp", async (req, res) => {
   try {
-    let jsonData = fs.readFileSync("data.json");
-    let data = JSON.parse(jsonData);
-    let workbook = new exceljs.Workbook();
+    const jsonData = fs.readFileSync("data.json", "utf8");
+    const data = JSON.parse(jsonData);
+    const workbook = new exceljs.Workbook();
     const sheet = workbook.addWorksheet("data");
     sheet.columns = [
       { header: "date", key: "date", width: 20 },
@@ -131,7 +96,7 @@ app.get("/exp", async (req, res) => {
       { header: "value4", key: "value4", width: 20 },
     ];
 
-    await data.map((item) => {
+    data.forEach((item) => {
       sheet.addRow({
         date: item.date,
         value1: item.value1,
@@ -143,12 +108,14 @@ app.get("/exp", async (req, res) => {
 
     await workbook.xlsx.writeFile("./public/history.xlsx");
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    return res.status(400).json({ error: e.message });
   }
+
   res.redirect("/public/history.xlsx");
 });
 
 app.get("/custom", (req, res) => {
   res.render("custom.ejs");
 });
+
 app.listen(3000, () => {});
