@@ -96,20 +96,15 @@ if (document.getElementById("s1guage") ) {
 }
 if (document.getElementById("s2guage") ) {
   document.getElementById("s2guage").style.setProperty('--value', Math.floor(dataFromServer.value2));
-  
-  
 }
-    
     }
   };
   xhr.open("GET", "/api/latest", true);
   xhr.send();
   
 }
-
-// Update the data every 2 seconds
 setInterval(updateData, 2000);
-console.log(data);
+updateData();
   </script><br/><center><section style="display:block;">
    
 </div></section></center>

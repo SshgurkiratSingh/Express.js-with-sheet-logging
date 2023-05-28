@@ -47,7 +47,7 @@ const sheetdb = require("sheetdb-node");
 let config = {
   address: "aavb2ip9w4zds",
 };
-// Enable CORS for all routes
+
 app.use(cors());
 var client = sheetdb(config);
 
