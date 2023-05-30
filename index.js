@@ -2,12 +2,13 @@ const express = require("express");
 const fs = require("fs");
 const exceljs = require("exceljs");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 const api = require("./router/api.js");
 const sheetdb = require("sheetdb-node");
 let config = {
-  address: "aavb2ip9w4zds",
+  address: process.env.SHEET_ADDRESS,
 };
 
 app.use(cors());
